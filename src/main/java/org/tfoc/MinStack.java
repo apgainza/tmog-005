@@ -1,5 +1,9 @@
 package org.tfoc;
 
+import java.util.EmptyStackException;
+import java.util.Objects;
+import java.util.Stack;
+
 /**
  * MinStack object will be instantiated and called as such:
  * MinStack obj = new MinStack()
@@ -10,26 +14,46 @@ package org.tfoc;
  */
 public class MinStack {
 
-    public MinStack() {
+    private Stack<Integer> data;
+    private Stack<Integer> minData;
 
+    public MinStack() {
+        data = new Stack<>();
+        minData = new Stack<>();
     }
 
     public void push(int val) {
-
+        data.add(val);
+        if (minData.isEmpty()) {
+            minData.push(val);
+        } else {
+            Integer topMinData = minData.peek();
+            if (Objects.nonNull(topMinData) && topMinData > val) {
+                minData.push(val);
+            }
+        }
     }
 
     public void pop() {
-
+        check();
+        Integer removeTop = data.pop();
+        if (removeTop.equals(minData.peek()))
+            minData.pop();
     }
 
     public int top() {
-
-        return 0;
+        check();
+        return data.peek();
     }
 
     public int getMin() {
+        check();
+        return minData.peek();
+    }
 
-        return 0;
+    private void check() {
+        if (data.isEmpty())
+            throw new EmptyStackException();
     }
 
 }
