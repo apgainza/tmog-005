@@ -14,8 +14,8 @@ import java.util.Stack;
  */
 public class MinStack {
 
-    private Stack<Integer> data;
-    private Stack<Integer> minData;
+    private final Stack<Integer> data;
+    private final Stack<Integer> minData;
 
     public MinStack() {
         data = new Stack<>();
